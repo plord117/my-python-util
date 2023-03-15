@@ -8,4 +8,5 @@ import matplotlib.pyplot as plt
 
 
 class MyPlot(FigureCanvas):
-    pass
+    def __init__(self):
+        pass
