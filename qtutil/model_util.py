@@ -94,7 +94,6 @@ class ModelUtil:
 
     @staticmethod
     def get_model_from_dict(data_dict: Dict) -> QStandardItemModel:
-        # todo: finish code
         model = ModelUtil.get_row_model()
         for key in data_dict:
             root_item = QStandardItem(f"{key}")
@@ -149,3 +148,14 @@ class ModelUtil:
                 ModelUtil.__add_row(model, row)
         else:
             ModelUtil.__add_row(model, data)
+
+    @staticmethod
+    def set_model_header(model: QStandardItemModel, header: List[str]) -> None:
+        """
+        设置模型标题行
+        :param model: 要设置标题的模型对象
+        :param header: header标题
+        :return:
+        """
+        header = [str(i) for i in header]
+        model.setHorizontalHeaderLabels(header)

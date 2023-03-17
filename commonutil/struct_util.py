@@ -1,6 +1,3 @@
-from typing import List
-
-
 def get_nest_degree_from_dict(d: dict) -> int:
     max_degree = 1
     for key in d:
