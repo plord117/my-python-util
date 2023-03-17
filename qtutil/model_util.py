@@ -1,10 +1,10 @@
-from typing import List, Sequence, Any
+from typing import List, Sequence, Any, Dict
 
 from PyQt5.QtGui import QStandardItem, QStandardItemModel
 
-from PyQt5.QtCore import Qt
-
 from PyQt5.QtWidgets import QAbstractItemView, QTableView, QWidget, QListView, QTreeView, QHeaderView
+
+from commonutil.struct_util import is_obj_iterable
 
 
 class ModelUtil:
@@ -26,12 +26,15 @@ class ModelUtil:
         :param header: 模型的标题
         :return: QStandardItemModel对象
         """
-        header = header if header is not None else [""]
-        col_cnt = len(header)
-        # 创建表格模型
-        model = QStandardItemModel(0, col_cnt)
-        # 设置标题
-        model.setHorizontalHeaderLabels(header)
+
+        if header:
+            # 创建表格模型
+            col_cnt = len(header)
+            model = QStandardItemModel(0, col_cnt)
+            # 设置标题
+            model.setHorizontalHeaderLabels(header)
+        else:
+            model = QStandardItemModel(0, 0)
 
         return model
 
@@ -90,16 +93,59 @@ class ModelUtil:
             model.setHorizontalHeaderLabels(old_header)
 
     @staticmethod
-    def get_model_from_dict(data_dict: dict, model: QStandardItemModel = None):
+    def get_model_from_dict(data_dict: Dict) -> QStandardItemModel:
         # todo: finish code
-        pass
+        model = ModelUtil.get_row_model()
+        for key in data_dict:
+            root_item = QStandardItem(f"{key}")
+            model.appendRow(root_item)
+            ModelUtil.__add_tree_node(root_item, data_dict[key])
+
+        return model
 
     @staticmethod
-    def get_model_from_sequence(data: Sequence[Any], model: QStandardItemModel = None):
-        # todo: finish code
-        pass
+    def __add_tree_node(parent: QStandardItem, d: Any) -> None:
+        """
+        递归添加数据到树形结构中
+        :param parent:
+        :param d:
+        :return:
+        """
+        if is_obj_iterable(d) and not isinstance(d, str):
+            if isinstance(d, dict):
+                for key in d:
+                    node = QStandardItem(f"{key}")
+                    parent.appendRow(node)
+                    ModelUtil.__add_tree_node(node, d[key])
+            else:
+                for item in d:
+                    ModelUtil.__add_tree_node(parent, item)
+        else:
+            node = QStandardItem(f"{d}")
+            parent.appendRow(node)
 
     @staticmethod
-    def append_model_data(widget: QWidget, data: Sequence[Any]):
-        # todo: finish code
-        pass
+    def get_model_from_sequence(data: Sequence[Any]):
+        model = ModelUtil.get_row_model()
+        if len(data):
+            first_item = data[0]
+            if is_obj_iterable(first_item):
+                for row in data:
+                    ModelUtil.__add_row(model, row)
+            else:
+                ModelUtil.__add_row(model, data)
+        return model
+
+    @staticmethod
+    def __add_row(model, data: Sequence[Any]):
+        row_item = [QStandardItem(f"{item}") for item in data]
+        model.appendRow(row_item)
+
+    @staticmethod
+    def append_model_data(model: QStandardItemModel, data: Sequence[Any]) -> None:
+        first_item = data[0]
+        if is_obj_iterable(first_item):
+            for row in data:
+                ModelUtil.__add_row(model, row)
+        else:
+            ModelUtil.__add_row(model, data)
