@@ -20,7 +20,7 @@ from fileutil.file_util import PropertyFileUtil
 
 
 @unique
-class Color(Enum):
+class LogFormatColor(Enum):
     RESET = '\033[0m'
     GREEN = '\033[96m'
     ORANGE = '\033[33m'
@@ -116,11 +116,11 @@ class MyLogger:
         :return: Formatter对象
         """
         return logging.Formatter(
-            f'{Color.GREEN.value}%(asctime)s{Color.RESET.value}'
+            f'{LogFormatColor.GREEN.value}%(asctime)s{LogFormatColor.RESET.value}'
             f'-%(levelname)s'
             f'-%(filename)s-%(threadName)s'
             f'-%(lineno)d-%(funcName)s'
-            f'-{Color.RED.value}%(message)s{Color.RESET.value}')
+            f'-{LogFormatColor.RED.value}%(message)s{LogFormatColor.RESET.value}')
 
     @classmethod
     def __create_log_dir(cls) -> str:
