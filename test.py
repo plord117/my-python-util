@@ -1,7 +1,8 @@
-from fileutil.file_util import FileUtil
-from shutil import copytree, ignore_patterns
-# for i in FileUtil.list_target_files("commonutil", "py", use_abstract_path=False):
-#     print(i)
+from algorithm.common.common_util import check_sort
 
+def my_sort(a:[], reverse):
+    a.sort(reverse=reverse)
 
-FileUtil.copy_dir(".", 'E:\\temp\\test', ignore=['py'])
+f = my_sort
+
+check_sort(f, 10000, show_detail=True)
