@@ -70,7 +70,7 @@ def _create_tree_node(root, llist, i) -> TreeNode:
 
 def check_sort(sort_function,
                n: int,
-               is_reverse: bool = True,
+               is_reverse: bool = False,
                show_detail: bool = False) -> None:
     """
     排序对数器

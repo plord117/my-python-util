@@ -113,3 +113,13 @@ def print_detailed_binarytree(root: TreeNode) -> None:
         return
 
     print(root)
+
+
+if __name__ == '__main__':
+    from algorithm.common.common_util import get_random_tree
+
+    root_node = get_random_tree(15)
+    # print_simple_binarytree(root_node)
+    # print_detailed_binarytree(root_node)
+
+    print_preorder_traversal(root_node)
