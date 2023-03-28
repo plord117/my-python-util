@@ -1,10 +1,12 @@
-import copy
-
 from typing import List, Any
 
 import random
 
+import string
+
 from algorithm.common.structure import TreeNode
+
+DEFAULT_LETTER = string.ascii_letters + string.digits
 
 
 def swap(array: List[Any], i: int, j: int) -> None:
@@ -21,6 +23,30 @@ def swap(array: List[Any], i: int, j: int) -> None:
     array[i] = array[i] ^ array[j]
     array[j] = array[i] ^ array[j]
     array[i] = array[i] ^ array[j]
+
+
+def get_random_string(length: int, base: str = DEFAULT_LETTER) -> str:
+    """
+    获取随机字符串
+    :param length: 字符串长度
+    :param base: 字符串基集合
+    :return: 指定长度的字符串
+    """
+    salt = ''.join(random.sample(base, length))
+    return salt
+
+
+def get_random_substring(length: int, base: str):
+    """
+
+    :param length:
+    :param base:
+    :return:
+    """
+    base_length = len(base)
+    start_index = random.randint(0, base_length - length - 1)
+
+    return base[start_index: start_index + length]
 
 
 def get_random_array(n: int, min_val: int = 0, max_val_int=100) -> List[int]:
@@ -66,43 +92,3 @@ def _create_tree_node(root, llist, i) -> TreeNode:
 
             return root
     return root
-
-
-def check_sort(sort_function,
-               n: int,
-               is_reverse: bool = False,
-               show_detail: bool = False) -> None:
-    """
-    排序对数器
-    :param sort_function: 自定义排序方法
-    :param n: 测试册数
-    :param is_reverse: 是否逆序
-    :param show_detail: 是否显示排序细节
-    :return: None
-    """
-    for _ in range(n):
-        array = get_random_array(15)
-        copied_array = copy.deepcopy(array)
-
-        copied_array.sort(reverse=is_reverse)
-        sort_function(array, reverse=is_reverse)
-
-        if show_detail:
-            print(f"*** 第{_ + 1}次测试 ***")
-            print(f"系统排序：{copied_array}")
-            print(f"您的排序: {array}")
-            print("")
-
-        if not check_two_array(array, copied_array):
-            print("排序错误")
-            raise ValueError("")
-
-
-def check_two_array(arr1: List[Any], arr2: List[Any]) -> bool:
-    """
-    检查两个数组是否一致
-    :param arr1: 数组1
-    :param arr2: 数组2
-    :return: 两个数组是否完全一致
-    """
-    return arr1 == arr2

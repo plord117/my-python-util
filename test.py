@@ -1,21 +1,48 @@
-import copy
-import time
-from algorithm.common.common_util import check_sort
-from algorithm.common.common_util import get_random_array
-from algorithm.sort import merge_sort, bubble_sort, insert_sort, selection_sort, quick_sort, heap_sort, shell_sort, radix_sort
+classmate = """何若兰
+金凯琦
+郭菁菁
+郭威
+户晨阳
+李秋艳
+李姝颖
+刘一宏
+刘昱昕
+刘钰昕
+吕鑫
+马婧妍
+孟凡超
+苗嘉琦
+邵奇
+史亚会
+孙德浩
+孙金鸽
+王天意
+孙德浩
+孙振林
+万富兴
+王鹏飞
+杨静飞
+赵小虎
+温芷媛
+谢东旭
+徐梦娇
+杨雪
+杨一辉
+于源
+潘晨熹
+张宇
+张虎""".split("\n")
 
-reverse = True
-sort_test_function = quick_sort
-N = 10
-check_sort(sort_test_function, N, show_detail=True, is_reverse=reverse)
-time.sleep(2)
-reverse = not reverse
-check_sort(sort_test_function, N, show_detail=True, is_reverse=reverse)
+d = {}
+for i, v in enumerate(classmate):
+    cl = classmate[:i] + classmate[i + 1:]
+    d[v] = cl
 
+for k in d:
+    s = ""
+    for j in d[k]:
+        s += f"[[{j}]] "
+    d[k] = "- classmate " + s
 
-for _ in range(10):
-    arr = get_random_array(15)
-    na = copy.deepcopy(arr)
-    na.sort(reverse=reverse)
-    arr = radix_sort(arr, reverse=reverse)
-    print(na == arr)
+for k in d:
+    print(k, d[k], sep='\t')
