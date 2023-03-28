@@ -50,7 +50,6 @@ def get_list_completer(str_list: List[str],
                        max_items: int = 7) -> QCompleter:
     """
     要设置的字符串列表补全器
-
     :param str_list: 要设置的补全列表
     :param case_sensitive: 指定对大小写是否敏感
     :param max_items: 指定最大的可见提示数目
@@ -70,7 +69,6 @@ def get_list_completer(str_list: List[str],
 def get_regression_validator(regression: str, normal_type: NormalReg = None) -> QRegExpValidator:
     """
     返回一个正则输入限制器
-
     :param regression: 正则表达式的值
     :param normal_type: 常用表达式类型
     :return: QRegExpValidator
