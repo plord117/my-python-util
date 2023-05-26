@@ -6,9 +6,9 @@ from configparser import ConfigParser
 
 import csv
 
-import shutil
 
-from shutil import copytree, ignore_patterns
+import shutil
+from shutil import ignore_patterns
 
 from configparser import NoSectionError
 
